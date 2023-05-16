@@ -33,15 +33,14 @@ app.use(auth);
 
 app.use(mainRouter);
 
+// Обработчики и логгеры ошибок
 app.use(errorLogger);
 app.use(errors());
-
 app.use(globalErrorHandler);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
 
-// https://api.nomoreparties.co/beatfilm-movies
 // подключаемся к серверу mongo
 mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {});
