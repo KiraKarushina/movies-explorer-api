@@ -1,6 +1,6 @@
-// Массив доменов, с которых разрешены кросс-доменные запросы TODO
+// Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  'https://domainname.praktikum.nomoredomains.monster',
+  'https://api.nomoreparties.co/beatfilm-movies',
 ];
 
 module.exports = (req, res, next) => {
