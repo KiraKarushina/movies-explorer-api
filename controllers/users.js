@@ -51,32 +51,6 @@ module.exports.getCurrentUser = (req, res, next) => User.findById(req.user._id)
   })
   .catch((err) => next(err));
 
-module.exports.getUsers = (req, res, next) => {
-  User.find({})
-    .then((users) => {
-      res.send({ data: users });
-    })
-    .catch(next);
-};
-
-module.exports.getUser = (req, res, next) => {
-  User.findById(req.params.userId)
-    .then((user) => {
-      if (user) {
-        res.send({ data: user });
-      } else {
-        next(new NotFoundError());
-      }
-    })
-    .catch((err) => {
-      if (err.name === errorNames.cast) {
-        next(new BadRequestError());
-      } else {
-        next(err);
-      }
-    });
-};
-
 module.exports.updateProfile = (req, res, next) => {
   const { name, email } = req.body;
   User.findByIdAndUpdate(

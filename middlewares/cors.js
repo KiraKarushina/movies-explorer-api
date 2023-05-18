@@ -1,6 +1,6 @@
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  'https://api.nomoreparties.co/beatfilm-movies',
+  'https://front.diploma.nomoredomains.monster',
 ];
 
 module.exports = (req, res, next) => {
