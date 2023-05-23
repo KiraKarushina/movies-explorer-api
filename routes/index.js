@@ -1,4 +1,3 @@
-const router = require('express').Router();
 const movies = require('./movies');
 const error = require('./error');
 const users = require('./users');
@@ -12,8 +11,8 @@ module.exports = function (app) {
 
   app.use(auth);
 
-  router.use(movies);
-  router.use(users);
-  router.use(logout);
-  router.use('*', error);
+  app.use(movies);
+  app.use(users);
+  app.use(logout);
+  app.use('*', error);
 };
