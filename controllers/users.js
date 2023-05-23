@@ -53,14 +53,22 @@ module.exports.getCurrentUser = (req, res, next) => User.findById(req.user._id)
 
 module.exports.updateProfile = (req, res, next) => {
   const { name, email } = req.body;
-  User.findByIdAndUpdate(
+  const findByIdAndUpdate = () => User.findByIdAndUpdate(
     req.user._id,
     {
       name,
       email,
     },
     { new: true, runValidators: true },
-  )
+  );
+
+  User.find({ email })
+    .then(([user]) => {
+      if (user && user._id.toString() !== req.user._id) {
+        throw new ConflictError();
+      }
+      return findByIdAndUpdate();
+    })
     .then((user) => res.send({ data: user }))
     .catch((err) => { next(err); });
 };
