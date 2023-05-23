@@ -6,7 +6,10 @@ const ForbiddenError = require('../customErrors/ForbiddenError');
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({})
-    .then((movies) => res.status(200).send({ data: movies }))
+    .then((movies) => {
+      const filteredMoovies = movies.filter((m) => req.user._id === m.owner.toString());
+      res.status(200).send({ data: filteredMoovies });
+    })
     .catch(next);
 };
 

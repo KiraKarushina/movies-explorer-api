@@ -82,7 +82,13 @@ module.exports.login = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.logout = (req, res, next) => {
+module.exports.logout = (req, res) => {
+  res.cookie('jwt', '', {
+    maxAge: 0,
+    httpOnly: true,
+    sameSite: 'None',
+    secure: true,
+  });
   res.clearCookie('jwt');
-  next();
+  return res.send({ message: messages.ok });
 };
