@@ -3,10 +3,13 @@ const jwtUtils = require('../utils/jwt');
 const UnauthorizedError = require('../customErrors/UnauthorizedError');
 
 module.exports = (req, res, next) => {
-  if (!req.cookies.jwt) {
+  const { authorization } = req.headers;
+
+  if (!authorization || !authorization.startsWith('Bearer ')) {
     next(new UnauthorizedError());
   }
-  const token = req.cookies.jwt;
+
+  const token = authorization.replace('Bearer ', '');
   let payload;
 
   try {
